@@ -4,11 +4,18 @@ import { formatTweet, formatDate } from '../utils/helpers'
 import TiArrowBackOutline from 'react-icons/lib/ti/arrow-back-outline'
 import TiHeartOutline from 'react-icons/lib/ti/heart-outline'
 import TiHeartFullOutline from 'react-icons/lib/ti/heart-full-outline'
+import { handleToggleTweet } from '../actions/tweets';
 
 class Tweet extends Component {
     handleLike = (e) => {
         e.preventDefault()
-        // todo: change number of likes in store state
+        
+        const { dispatch, tweet, authedUser } = this.props
+        dispatch(handleToggleTweet({
+            id: tweet.id,
+            hasLiked: tweet.hasLiked,
+            authedUser: authedUser
+        })) 
     }
 
     toParent = (e) => {
@@ -21,7 +28,7 @@ class Tweet extends Component {
             return <p>This Tweet doesn't exist </p>
         }
 
-        console.log(this.props)
+        //console.log(this.props)
 
         const { 
             name, avatar, timestamp, text, hasLiked, likes, replies, parent 
